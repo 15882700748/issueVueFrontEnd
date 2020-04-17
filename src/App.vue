@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <el-row>
+      <el-col>
+        <el-link type="primary" href="/homePage">首页</el-link>
+      </el-col>
+    </el-row>
+    <router-view router></router-view>
   </div>
 
 </template>
 
 <script>
-
-import Org from './views/org'
 export default {
   name: 'app',
   components: {
-    Org
   },
     data(){
         return {
