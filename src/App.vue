@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <el-row>
-      <el-col>
-        <el-link type="primary" href="/homePage">首页</el-link>
-      </el-col>
-    </el-row>
     <router-view router></router-view>
   </div>
 
@@ -20,6 +15,30 @@ export default {
             ak: "XSdzkf0NfDrhjsltQ2IQGTdA9GBXTr2K",
         }
     },
+    created(){
+      let _this = this
+        axios.post('/style/getStyle').then(resp => {
+            if(resp.data.code === '200'){
+                let styleStr = JSON.stringify(resp.data.style),
+                    style = resp.data.style,
+                    layout = JSON.parse(style.layout).Layout,
+                    typeInfo = style.layout,
+                    arr = [],
+                    code,
+                    target
+                arr.push(layout.indexOf('首页'))
+                arr.push(layout.indexOf('栏目'))
+                arr.push(layout.indexOf(''))
+                code = arr.join('')
+                window.sessionStorage.setItem("isSelect",'true')
+                window.sessionStorage.setItem('homePageTarget',code)
+                window.sessionStorage.setItem('typeInfo',typeInfo)
+                _this.$router.push('/homePage')
+            }else{
+                _this.$message("未设置展示")
+            }
+        })
+    }
 }
 </script>
 
@@ -30,7 +49,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  overflow-y: scroll;
+  /*overflow-y: hidden;*/
+}
+#app::-webkit-scrollbar{
+    width: 0 !important;
+}
+body{
+    margin:0;
+}
+body::-webkit-scrollbar{
+    width: 0 !important;
 }
   #footer{
     position: relative;

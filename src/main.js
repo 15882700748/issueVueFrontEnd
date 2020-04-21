@@ -6,6 +6,7 @@ import store from './store'
 import './plugins/element.js'
 import api from './config/vue.config'
 import BMap from 'vue-baidu-map'
+import 'vue2-animate/dist/vue2-animate.min.css'
 
 import VueKindEditor from './plugins/kindeditor'
 import '../public/kindeditor/themes/default/default.css'
@@ -14,7 +15,7 @@ import '../public/kindeditor/lang/zh-CN.js'
 
 Vue.use(VueKindEditor)
 Vue.use(BMap,{
-  ak:'XSdzkf0NfDrhjsltQ2IQGTdA9GBXTr2K'
+  ak:'7cfAVrpjol38tCdQIR4BQ18NfivvOd8V'
 })
 Vue.config.productionTip = false
 axios.defaults.timeout = 5000
