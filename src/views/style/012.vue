@@ -1,7 +1,7 @@
 <template>
     <el-container >
         <el-main >
-            <el-header style="width: 100%;height: auto;padding: 0;position: relative" class="border">
+            <el-header style="width: 100%;height: auto;padding: 0;position: relative;" >
                 <div class="headerImg">
                     <el-image style="margin:0;height: 150px;width: 100%" fit="cover" :src="axios.defaults.baseURL+'issue/'+issue.logo"></el-image>
                 </div>
@@ -9,19 +9,32 @@
                     {{issue.title}}
                 </div>
             </el-header>
-            <el-container class="container">
-                <el-aside style="width: 150px;height: 550px;margin-left: 50px" class="border">
-                    <ul class="column-menu" ref="columnList">
-                        <li v-for="item in columns" class="column-item border" @click="getColumnInfo($event,item)"> {{item.name}}</li>
-                        <li class="column-item border" @click="getColumnInfo($event,null,'article')" >会议文章</li>
-                        <li class="column-item border" @click="getColumnInfo($event,null,'album')" >相册</li>
-                    </ul>
+            <el-container >
+                <el-aside style="width: 200px;min-height: 600px;background-color: #485460;color: white!important;" >
+                    <el-row style="width:80%;height: auto;margin:20px auto 0; line-height:20px;border-bottom: 1px #DCDFE6 solid; ">
+                        <el-col>
+                            <ul class="column-menu" ref="columnList">
+                                <li v-for="item in columns" class="column-item border" @click="getColumnInfo($event,item)"> {{item.name}}</li>
+                                <li class="column-item border" @click="getColumnInfo($event,null,'article')" >会议文章</li>
+                                <li class="column-item border" @click="getColumnInfo($event,null,'album')" >相册</li>
+                            </ul>
+                        </el-col>
+                    </el-row>
+                    <el-row  style="width:80%;height: 40px;margin:20px auto 0; line-height:20px;border-bottom: 1px #DCDFE6 solid; ">
+                        <el-col>
+                            赞助商
+                        </el-col>
+                    </el-row>
+                    <spon-vue :spons="spons" style="height: auto"></spon-vue>
                 </el-aside>
-                <el-main style="width: 100%;height:700px" class="border" >
+                <el-main style="width: 100%;height:700px;border-left:1px #DCDFE6 solid;"  >
                     <div v-if="isAsideContent">
-                        <el-row style="height: 50px;border-bottom: 1px #DCDFE6 solid; ">
+                        <el-row style="height: 50px;border-bottom: 1px #DCDFE6 solid; background-color: #485460;color: white!important;">
                             <el-col :span="20" :offset="1" style="margin-top: 12px">
-                                <el-page-header @back="goBack" :content="mainContent.data.name+'内容详情'">
+                                <el-page-header  @back="goBack" color="white" >
+                                    <div slot="content" style="color: white !important;">
+                                        {{mainContent.data.name+'内容详情'}}
+                                    </div>
                                 </el-page-header>
                             </el-col>
                         </el-row>
@@ -29,7 +42,7 @@
                         <div v-if="mainContent.type === 'article'">
                             <!--卡片效果-->
                             <div v-if="articleType === '卡片效果'"  class="column-content-wrapper border">
-                                <el-card class="box-card"  style="position: relative">
+                                <el-card class="box-card"  style="position: relative;background-color:#485460;color: white ">
                                     <div slot="header" >
                                         <span>第 <span contenteditable="true">{{articleCurrentPage}}</span>篇(共{{articleTotalPage}}篇)</span>
                                         <el-divider direction="vertical"></el-divider>
@@ -41,8 +54,8 @@
                                             <i class="el-icon-back" style="color:#DCDFE6;font-size: 2em"> </i>
                                         </div>
                                     </div>
-                                    <div style="margin: 0 60px">
-                                        内容 ： <span v-html="cardTypeArticle.content"></span>
+                                    <div style="margin: 0 60px; ">
+                                       <span v-html="cardTypeArticle.content"></span>
                                     </div>
                                 </el-card>
                             </div>
@@ -56,11 +69,11 @@
 
                                     <div class="infinite-list-wrapper" style="margin-top:40px; width: 100%">
                                         <div
-                                                class="wrapper" style="min-height:500px;display: block;width:100%;margin: 60px auto;"
+                                                class="wrapper" style="height: auto;display: block;width:100%; margin-top: 30px"
                                                 v-for="(item,index) in articles"
                                                 v-infinite-scroll="loadArticles" infinite-scroll-disabled="disabledArticles">
                                             <div class="album" style="height: auto;width: 100%;">
-                                                <el-card class="box-card" style="min-height:500px;width: 100%;">
+                                                <el-card class="box-card" style="min-height:500px;width: 100%;background-color:#485460;color: white">
                                                     <div slot="header" >
                                                         <span>{{item.title}}</span>
                                                     </div>
@@ -88,14 +101,14 @@
                         </div>
                         <!--栏目-->
                         <div v-else-if="mainContent.type === 'column'">
-                            <div class="column-content-wrapper border">
-                                <div class="column-content-header border">
+                            <div class="column-content-wrapper border" style="box-shadow: 0 0 20px #485460">
+                                <div class="column-content-header " style="border-bottom: 1px #485460 solid;background-color:#485460;color: white ">
                                     <div class="column-content-header-item">发布时间：{{mainContent.data.creatTime}}</div>
                                 </div>
-                                <div class="column-content-main border">
+                                <div class="column-content-main ">
                                    <span style="display:block;width: 80%;margin: 20px auto" v-html="mainContent.data.content"></span>
                                 </div>
-                                <div class="column-content-footer border">
+                                <div class="column-content-footer ">
                                 </div>
                             </div>
 
@@ -104,7 +117,7 @@
                         <div v-else >
                             <div class="column-content-wrapper border">
                                 <div v-if="isPicture" class="column-content-header border">
-                                    <el-row>
+                                    <el-row style="background-color:#485460;color: white ">
                                         <el-col :span="4">
                                             <el-tooltip class="item" effect="dark" content="返回相册" placement="top-start">
                                                 <i class="el-icon-back" @click="returnAlbum" style="cursor: pointer">返回相册</i>
@@ -116,14 +129,14 @@
                                         </el-col>
                                     </el-row>
                                 </div>
-                                <div class="column-content-main border" >
+                                <div class="column-content-main border"  style="background-color:#485460;color: white">
                                     <!--图片-->
                                     <div v-if="isPicture" class="infinite-list-wrapper" style="overflow-y:scroll;margin-top: 40px">
                                         <div
                                                 class="wrapper"
                                                 v-for="(item,index) in pictures"
                                                 v-infinite-scroll="loadPicture" infinite-scroll-disabled="disabledPicture">
-                                            <div class="album" >
+                                            <div class="album"  >
                                                 <el-image :preview-src-list="[item.imgUrl+'']" @error="imgErrorHandle" :src="item.imgUrl"
                                                           class="img" fit="container" ></el-image>
                                                 <span class="albumName">上传时间 ：{{item.uploadTime}}</span>
@@ -133,7 +146,7 @@
                                         <p v-if="noMorePicture">没有更多了</p>
                                     </div>
                                     <!--相册-->
-                                    <div v-else class="infinite-list-wrapper" style="overflow-y:scroll;margin-top: 40px">
+                                    <div v-else class="infinite-list-wrapper" style="height:auto;margin-top: 40px;background-color:#485460;color: white">
                                         <div
                                                 class="wrapper"
                                                 v-for="(item,index) in albums"
@@ -184,6 +197,18 @@
                     </div>
                 </el-main>
             </el-container>
+            <el-footer >
+                <div style="width: 100%;height: 50px;margin-top: 30px; line-height: 50px" >
+                    <span>{{org.name}} 版权所有　© 2005-2020</span>
+                    <el-divider direction="vertical"></el-divider>
+                    <span>邮箱：<a style="text-decoration: none;color: black" :href="'mailto:'+org.email">{{org.email}}</a></span>
+                    <el-divider direction="vertical"></el-divider>
+                    <span>TEL：{{org.tel}}</span>
+                    <el-divider direction="vertical"></el-divider>
+                    <span>关于：{{org.orgDesc}}</span>
+                </div>
+
+            </el-footer>
         </el-main>
     </el-container>
 </template>
@@ -191,12 +216,14 @@
 <script>
     import Book from '../../components/tool/book'
     import Map from '../../components/tool/Map'
+    import SponVue from '../../components/tool/SponVue'
     export default {
         name: "Style012",
-        props:['issue','columns','styleLayout','spons'],
+        props:['issue','columns','styleLayout','spons','org'],
         components : {
             Book,
-            Map
+            Map,
+            SponVue
         },
         data(){
             return {
@@ -206,8 +233,8 @@
                 },
                 cardTypeArticle: {},
                 activeStyleLayout : [
-                    {color:'white',background:'#DCDFE6'},//active
-                    {color:'black',background:'white'},
+                    {color:'#4bcffa',background:'transparent'},//active
+                    {color:'white',background:'transparent'},
                 ],
                 articles : [],
                 albums : [],
@@ -342,14 +369,14 @@
                 let _this = this
                 axios.post('/article/getArticles?pageNo='+pageNo+'&pageSize='+pageSize).then(resp => {
                    let data = resp.data.records
-                    if(this.articleType === '卡片效果'){
+                    if(_this.articleType === '卡片效果'){
                         _this.cardTypeArticle = data[0]
-                    }else if(this.articleType === '瀑布流效果'){
+                    }else if(_this.articleType === '瀑布效果'){
                         _this.articles = _this.articles.concat(data)
                     }else{
                         _this.articles =  data;
                     }
-                    console.log(resp.data.records)
+                    console.log( _this.articles ,_this.articleType)
                     for(let i=0; i<_this.articles.length;i++){
                         _this.articles[i].holdupTime = _this.timeFormat(_this.articles[i].holdupTime,0,11)
                         _this.articles[i].realseTime = _this.timeFormat(_this.articles[i].realseTime,0,16)
@@ -554,6 +581,9 @@
         top: 10px;
     }
 
+    .el-page-header__content{
+        color: white;
+    }
     .border{
         border: 1px #DCDFE6 solid;
     }

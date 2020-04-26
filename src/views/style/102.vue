@@ -14,7 +14,7 @@
             </ul>
         </el-header>
         <el-container>
-            <el-aside style="width:200px;min-height: 300px;max-height: 400px;margin:40px 20px 0 ;;border-radius:20px" class="border">
+            <el-aside style="width:200px;min-height: 300px;max-height: 400px;margin:40px 20px 0 ;;border-radius:20px" >
                 <el-row  style="width:80%;height: 40px;margin:20px auto ; line-height:20px;border-bottom: 1px #DCDFE6 solid; ">
                     <el-col>
                         赞助商
@@ -163,7 +163,7 @@
                             会议内容
                         </el-col>
                     </el-row>
-                    <el-row style="width: 80%;margin: 0 auto;border-bottom: 1px #DCDFE6 solid">
+                    <el-row style="width: 80%;margin: 20px auto;border-bottom: 1px #DCDFE6 solid">
                         <el-col>
                             <span v-html="issue.content"></span>
                         </el-col>
@@ -189,6 +189,18 @@
                 </div>
             </el-main>
         </el-container>
+        <el-footer >
+            <div style="width: 100%;height: 50px;margin-top: 30px; line-height: 50px" >
+                <span>{{org.name}} 版权所有　© 2005-2020</span>
+                <el-divider direction="vertical"></el-divider>
+                <span>邮箱：<a style="text-decoration: none;color: black" :href="'mailto:'+org.email">{{org.email}}</a></span>
+                <el-divider direction="vertical"></el-divider>
+                <span>TEL：{{org.tel}}</span>
+                <el-divider direction="vertical"></el-divider>
+                <span>关于：{{org.orgDesc}}</span>
+            </div>
+
+        </el-footer>
     </el-container>
 </template>
 
@@ -198,7 +210,7 @@
     import SponVue from '../../components/tool/SponVue'
     export default {
         name: "Style102",
-        props:['issue','columns','styleLayout','spons'],
+        props:['issue','columns','styleLayout','spons','org'],
         components : {
             Book,
             Map,

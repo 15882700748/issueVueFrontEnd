@@ -1,10 +1,10 @@
 <template>
     <el-container>
         <el-main style="width: 100vw;height: 100vh;">
-            <Style012 style="width: 100%; height: 100%" v-if="code ==='012'" :issue="issue" :columns="columns" :styleLayout="styleLayout" :spons="spons"></Style012>
-            <Style021 style="width: 100%; height: 100%" v-if="code ==='021'" :issue="issue" :columns="columns" :styleLayout="styleLayout" :spons="spons"></Style021>
-            <Style102 style="width: 100%; height: 100%" v-if="code ==='102'" :issue="issue" :columns="columns" :styleLayout="styleLayout" :spons="spons"></Style102>
-            <Style201 style="width: 100%; height: 100%" v-if="code ==='120'" :issue="issue" :columns="columns" :styleLayout="styleLayout" :spons="spons"></Style201>
+            <Style012 style="width: 100%; height: 100%" v-if="code ==='012'" :issue="issue" :columns="columns" :styleLayout="styleLayout" :spons="spons" :org="organization"></Style012>
+            <Style021 style="width: 100%; height: 100%" v-if="code ==='021'" :issue="issue" :columns="columns" :styleLayout="styleLayout" :spons="spons" :org="organization"></Style021>
+            <Style102 style="width: 100%; height: 100%" v-if="code ==='102'" :issue="issue" :columns="columns" :styleLayout="styleLayout" :spons="spons" :org="organization"></Style102>
+            <Style201 style="width: 100%; height: 100%" v-if="code ==='120'" :issue="issue" :columns="columns" :styleLayout="styleLayout" :spons="spons" :org="organization"></Style201>
         </el-main>
     </el-container>
 </template>
@@ -31,6 +31,7 @@
                 issue : null,
                 columns : null,
                 spons : null,
+                organization : null,
                 styleLayout : null
             }
         },
@@ -71,6 +72,13 @@
                     }
                     _this.spons = data
                 })
+            },
+            getOrganization(){
+                let _this = this
+                axios.post('/organization/queryOrgInfo').then(resp => {
+                    let data = resp.data
+                    _this.organization = data
+                })
             }
         },
         created(){
@@ -79,6 +87,7 @@
             this.getColumns();
             this.styleLayout = JSON.parse(window.sessionStorage.getItem("typeInfo"));
             this.getSpons()
+            this.getOrganization();
         }
     }
 </script>
