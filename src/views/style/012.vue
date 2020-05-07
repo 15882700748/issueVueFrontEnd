@@ -27,7 +27,7 @@
                     </el-row>
                     <spon-vue :spons="spons" style="height: auto"></spon-vue>
                 </el-aside>
-                <el-main style="width: 100%;height:700px;border-left:1px #DCDFE6 solid;"  >
+                <el-main style="width: 100%;min-height:700px;border-left:1px #DCDFE6 solid;"  >
                     <div v-if="isAsideContent">
                         <el-row style="height: 50px;border-bottom: 1px #DCDFE6 solid; background-color: #485460;color: white!important;">
                             <el-col :span="20" :offset="1" style="margin-top: 12px">
@@ -106,7 +106,7 @@
                                     <div class="column-content-header-item">发布时间：{{mainContent.data.creatTime}}</div>
                                 </div>
                                 <div class="column-content-main ">
-                                   <span style="display:block;width: 80%;margin: 20px auto" v-html="mainContent.data.content"></span>
+                                   <span style="display:block;width: 80%;margin: 20px auto;text-align: left" v-html="mainContent.data.content"></span>
                                 </div>
                                 <div class="column-content-footer ">
                                 </div>
@@ -138,7 +138,7 @@
                                                 v-infinite-scroll="loadPicture" infinite-scroll-disabled="disabledPicture">
                                             <div class="album"  >
                                                 <el-image :preview-src-list="[item.imgUrl+'']" @error="imgErrorHandle" :src="item.imgUrl"
-                                                          class="img" fit="container" ></el-image>
+                                                          class="img" fit="container" lazy></el-image>
                                                 <span class="albumName">上传时间 ：{{item.uploadTime}}</span>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                                                 v-infinite-scroll="load" infinite-scroll-disabled="disabled">
                                             <div class="album" >
                                                 <el-image @error="imgErrorHandle" :src="item.imgUrl"
-                                                          class="img" fit="container" @click="viewPicture(item)"></el-image>
+                                                          class="img" fit="container" @click="viewPicture(item)" lazy></el-image>
                                                 <span class="albumName">相册名称：{{item.albumName}}</span>
                                                 <span class="albumDesc">描述：{{item.albumDesc}}</span>
                                             </div>
@@ -173,7 +173,7 @@
                         </el-row>
                         <el-row style="width: 80%;margin: 20px auto;border-bottom: 1px #DCDFE6 solid">
                             <el-col>
-                                <span v-html="issue.content"></span>
+                                <span style="text-align: left" v-html="issue.content"></span>
                             </el-col>
                         </el-row>
                         <el-row style="height:20px;width: 80%; margin-top: 10px">
@@ -520,7 +520,7 @@
     }
     /*main*/
     .column-content-wrapper{
-        width: 1000px;
+        width: 95%;
         margin: 50px auto ;
         min-width: 400px;
     }

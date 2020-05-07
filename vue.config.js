@@ -37,7 +37,6 @@ module.exports = {
     // Output filename is inferred to be `subpage.html`.
     // subpage: 'src/subpage/main.js'
     // },
-
     //   lintOnSave：{ type:Boolean default:true } 问你是否使用eslint
     lintOnSave: true,
     // productionSourceMap：{ type:Bollean,default:true } 生产源映射

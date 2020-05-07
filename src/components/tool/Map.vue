@@ -5,7 +5,7 @@
                    style="height: 400px; width: 100%">
             <bm-scale></bm-scale>
             <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
-            <bm-city-list anchor="BMAP_ANCHOR_TOP_LEFT"></bm-city-list>
+            <!--<bm-city-list anchor="BMAP_ANCHOR_TOP_LEFT"></bm-city-list>-->
             <bm-marker :position="center" >
                 <bm-info-window :show="show" @close="infoWindowClose" @open="infoWindowOpen" style="font-size: 14px">
                     <p>站点地址：{{loc}}</p>
@@ -64,18 +64,6 @@
                 map.enableScrollWheelZoom(true);
                 this.map = map
                 let geolocation = new BMap.Geolocation()
-                geolocation.getCurrentPosition((r) => {
-                    if (r.point) {
-                        let markers = new BMap.Marker(r.point)
-                        _this.map.addOverlay(markers)
-                        _this.map.panTo(r.point)
-                        _this.map.centerAndZoom(r.point, _this.zoom)
-                        _this.isLoading =false
-                        _this.myCenter.lng = r.lng
-                        _this.myCenter.lat = r.lat
-                    }
-                }, { enableHighAccuracy: true })
-
             },
         },
         created(){
